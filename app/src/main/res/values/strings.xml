@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SearchBookYandexMap</string>
+    <string name="show_me">Show Me</string>
+    <string name="show_now_address">show now address</string>
 </resources>
