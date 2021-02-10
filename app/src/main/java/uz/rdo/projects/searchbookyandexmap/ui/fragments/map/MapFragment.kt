@@ -1,7 +1,7 @@
 package uz.rdo.projects.searchbookyandexmap.ui.fragments.map
 
-import android.R
 import android.annotation.SuppressLint
+import android.inputmethodservice.Keyboard
 import android.location.Location
 import android.os.Bundle
 import android.text.Editable
@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.internal.ViewUtils
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
@@ -23,12 +22,11 @@ import com.yandex.mapkit.map.VisibleRegionUtils
 import com.yandex.mapkit.search.*
 import com.yandex.runtime.Error
 import uz.rdo.projects.searchbookyandexmap.data.model.PlaceM
-import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentMapBinding
 import uz.rdo.projects.searchbookyandexmap.ui.adapters.recycler.ResultAdapter
+import uz.rdo.projects.searchbookyandexmap.utils.hideKeyboard
 import uz.rdo.projects.searchbookyandexmap.utils.metrToKM
 import uz.rdo.projects.searchbookyandexmap.utils.showToast
-import java.lang.NullPointerException
 
 class MapFragment : Fragment() {
 
@@ -70,7 +68,6 @@ class MapFragment : Fragment() {
         binding.rvResults.adapter = adapter
     }
 
-
     private fun loadMapListeners() {
         moveCameraPosition(currentPoint)
         binding.mapView.map.apply {
@@ -107,7 +104,7 @@ class MapFragment : Fragment() {
 
         if (latitude != null && longitude != null) {
             tappedPoint = Point(latitude, longitude)
-
+            hideKeyboard(requireActivity())
             moveCameraPosition(tappedPoint!!)
         }
 
@@ -117,7 +114,7 @@ class MapFragment : Fragment() {
     private fun moveCameraPosition(point: Point) {
         binding.mapView.map.move(
             CameraPosition(point, 15.0f, 0.0f, 0.0f),
-            Animation(Animation.Type.SMOOTH, 1f),
+            Animation(Animation.Type.SMOOTH, 0.7f),
             null
         )
     }
@@ -194,7 +191,6 @@ class MapFragment : Fragment() {
         }
     }
 
-
     override fun onStart() {
         super.onStart()
         binding.mapView.onStart()
@@ -207,9 +203,9 @@ class MapFragment : Fragment() {
         MapKitFactory.getInstance().onStop()
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
 }
