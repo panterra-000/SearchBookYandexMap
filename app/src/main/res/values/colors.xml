@@ -8,4 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="result_color">#FFFC41</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorBackSearchET">#1F767680</color>
+    <color name="colorTextEt">#989898</color>
+
+
 </resources>
