@@ -132,7 +132,6 @@ class MainActivityNull : AppCompatActivity() {
         selectionMetadata != null
     }
 
-
     @SuppressLint("SetTextI18n")
     private val cameraPositionListener: CameraListener =
         CameraListener { p0, cameraPosition, cameraUpdateReason, isStopped ->

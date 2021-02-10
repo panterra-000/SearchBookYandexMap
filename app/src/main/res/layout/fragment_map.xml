@@ -11,8 +11,11 @@
       android:id="@+id/mapView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="30dp"
-      />
+      android:layout_marginBottom="20dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/btn_pin"
@@ -26,7 +29,7 @@
         app:layout_constraintTop_toTopOf="@+id/mapView" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rv_results"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/back_rv_result_search"
@@ -34,7 +37,7 @@
         android:paddingTop="60dp"
         android:paddingRight="20dp"
         android:paddingBottom="20dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/et_search"
         app:layout_constraintStart_toStartOf="@+id/et_search"
         app:layout_constraintTop_toTopOf="@+id/et_search"

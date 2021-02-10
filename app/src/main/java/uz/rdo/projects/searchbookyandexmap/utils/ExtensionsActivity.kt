@@ -1,9 +1,10 @@
 package uz.rdo.projects.searchbookyandexmap.utils
 
 import android.app.Activity
+import android.content.Context
 import android.widget.Toast
 
 
-fun Activity.showToast(string: String){
-    Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
+fun showToast(string: String, context: Context) {
+    Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
 }
