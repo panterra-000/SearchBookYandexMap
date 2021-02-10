@@ -2,4 +2,6 @@
     <string name="app_name">SearchBookYandexMap</string>
     <string name="show_me">Show Me</string>
     <string name="show_now_address">show now address</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

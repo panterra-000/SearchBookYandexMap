@@ -14,9 +14,8 @@ import com.yandex.mapkit.map.*
 import com.yandex.mapkit.search.*
 import com.yandex.runtime.Error
 import uz.rdo.projects.searchbookyandexmap.databinding.ActivityMainBinding
-import uz.rdo.projects.searchbookyandexmap.model.PlaceM
+import uz.rdo.projects.searchbookyandexmap.data.model.PlaceM
 import uz.rdo.projects.searchbookyandexmap.utils.metrToKM
-import uz.rdo.projects.searchbookyandexmap.utils.showToast
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class MainActivity : AppCompatActivity() {

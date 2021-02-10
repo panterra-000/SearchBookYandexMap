@@ -1,4 +1,4 @@
-package uz.rdo.projects.searchbookyandexmap.model
+package uz.rdo.projects.searchbookyandexmap.data.model
 
 import com.yandex.mapkit.geometry.Point
 

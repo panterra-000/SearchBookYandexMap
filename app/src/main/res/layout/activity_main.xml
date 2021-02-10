@@ -22,7 +22,6 @@
         app:layout_constraintStart_toStartOf="@+id/btn_showNowAddressPoint"
         app:layout_constraintTop_toBottomOf="@+id/btn_showNowAddressPoint" />
 
-
     <ImageView
         android:id="@+id/img_pin"
         android:layout_width="64dp"
