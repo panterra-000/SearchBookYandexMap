@@ -8,4 +8,7 @@
     <string name="map">Карта</string>
     <string name="addresses">Addresses</string>
     <string name="profile">Profile</string>
+    <string name="address_example">Государственый музей истории Тимуридов</string>
+    <string name="example_distance">650m</string>
+    <string name="example_subtitle">Музей, улица Амира Темура, 1</string>
 </resources>

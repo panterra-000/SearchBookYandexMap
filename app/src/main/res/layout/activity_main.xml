@@ -20,30 +20,14 @@
         app:navGraph="@navigation/main_nav_graph" />
 
 
-    <EditText
-        android:id="@+id/et_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:drawableStart="@drawable/ic_search"
-        android:drawableEnd="@drawable/ic_action"
-        android:drawablePadding="10dp"
-        android:hint="@string/search"
-        android:padding="15dp"
-        android:background="@drawable/edit_text_back"
-        android:singleLine="true"
-        android:textColor="@color/colorTextEt"
-        android:textSize="@dimen/search_txt_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_menu_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:labelVisibilityMode="unlabeled"
         android:background="@drawable/back_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

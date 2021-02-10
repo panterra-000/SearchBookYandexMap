@@ -9,8 +9,13 @@
     <color name="result_color">#FFFC41</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- Main activity -->
     <color name="colorBackSearchET">#1F767680</color>
     <color name="colorTextEt">#989898</color>
+    <color name="colorItemRvText">#8E8E93</color>
+    <color name="colorLineRvItem">#EEEEEF</color>
+
+
 
 
 </resources>
