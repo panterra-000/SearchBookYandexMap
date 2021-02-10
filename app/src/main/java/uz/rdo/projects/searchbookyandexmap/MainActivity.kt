@@ -2,6 +2,9 @@ package uz.rdo.projects.searchbookyandexmap
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import uz.rdo.projects.searchbookyandexmap.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +18,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        loadViews()
+    }
+
+    private fun loadViews() {
+        binding.apply {
+        val navController = findNavController(R.id.navHost)
+        bottomMenuNav.setupWithNavController(navController)
+        }
     }
 
     override fun onDestroy() {

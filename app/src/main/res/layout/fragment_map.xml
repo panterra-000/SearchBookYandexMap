@@ -14,7 +14,6 @@
       android:layout_marginBottom="30dp"
       />
 
-
     <ImageView
         android:id="@+id/btn_pin"
         android:layout_width="64dp"
@@ -61,9 +60,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-
 
     <ImageView
         android:id="@+id/btn_navigate_me"
