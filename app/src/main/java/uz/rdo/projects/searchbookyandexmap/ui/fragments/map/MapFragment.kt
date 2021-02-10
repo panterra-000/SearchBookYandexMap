@@ -1,5 +1,6 @@
 package uz.rdo.projects.searchbookyandexmap.ui.fragments.map
 
+import android.R
 import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.internal.ViewUtils
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
@@ -105,6 +107,7 @@ class MapFragment : Fragment() {
 
         if (latitude != null && longitude != null) {
             tappedPoint = Point(latitude, longitude)
+
             moveCameraPosition(tappedPoint!!)
         }
 
@@ -179,7 +182,7 @@ class MapFragment : Fragment() {
                 val placeM = PlaceM(
                     title = suggest.obj?.name.toString(),
                     subtitle = suggest.obj?.descriptionText.toString(),
-                    distance = distanceOf.toString(),
+                    distance = distanceOf.metrToKM(),
                     point = foundPoint
 
                 )
