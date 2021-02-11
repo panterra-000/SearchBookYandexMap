@@ -91,11 +91,12 @@ class MapFragment : Fragment() {
         binding.rvResults.adapter = adapter
 
         adapter!!.setOnclickItemListener { placeModel ->
-            Toast.makeText(
+
+        /*    Toast.makeText(
                 requireContext(),
                 "${placeModel.title} , ${placeModel.subtitle}",
                 Toast.LENGTH_SHORT
-            ).show()
+            ).show()*/
 
             selectedPlace = placeModel
             val point = Point(placeModel.latitude, placeModel.longitude)
