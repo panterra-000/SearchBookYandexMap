@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yandex.mapkit.Animation
@@ -23,6 +24,7 @@ import com.yandex.mapkit.search.*
 import com.yandex.runtime.Error
 import uz.rdo.projects.searchbookyandexmap.R
 import uz.rdo.projects.searchbookyandexmap.data.model.PlaceM
+import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentMapBinding
 import uz.rdo.projects.searchbookyandexmap.ui.adapters.recycler.ResultAdapter
 import uz.rdo.projects.searchbookyandexmap.utils.*
@@ -65,6 +67,15 @@ class MapFragment : Fragment() {
         binding.rvResults.layoutManager = LinearLayoutManager(requireContext())
         adapter = ResultAdapter(arrayListOf())
         binding.rvResults.adapter = adapter
+
+        adapter!!.setOnclickItemListener { placeModel ->
+            Toast.makeText(
+                requireContext(),
+                "${placeModel.title} , ${placeModel.subtitle}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
     }
 
     private fun loadMapListeners() {
@@ -73,7 +84,6 @@ class MapFragment : Fragment() {
             addCameraListener(cameraPositionListener)
             addTapListener(geoObjectTapListener)
         }
-
         loadSuggestListener()
     }
 
@@ -145,10 +155,14 @@ class MapFragment : Fragment() {
                     before: Int,
                     count: Int
                 ) {
+
+                    val searchOption = SearchOptions()
+                    searchOption.snippets = Snippet.BUSINESS_RATING1X.value
+
                     searchManager.submit(
                         text.toString(),
                         VisibleRegionUtils.toPolygon(binding.mapView.map.visibleRegion),
-                        SearchOptions(),
+                        searchOption,
                         searchListener
                     )
 
@@ -168,7 +182,7 @@ class MapFragment : Fragment() {
         }
 
         override fun onSearchResponse(response: Response) {
-            val resultList = ArrayList<PlaceM>()
+            val resultList = ArrayList<PlaceModel>()
             val resultTitleList = ArrayList<String>()
 
             for (suggest in response.collection.children) {
@@ -187,11 +201,20 @@ class MapFragment : Fragment() {
                     distanceOf = currentLocation.distanceTo(foundLocation)
                 }
 
-                val placeM = PlaceM(
+                val placeMoreData =
+                    suggest.obj?.metadataContainer?.getItem(BusinessRating1xObjectMetadata::class.java)
+
+                Log.d("TUU", "$placeMoreData")
+
+                val placeM = PlaceModel(
+                    id = 0,
                     title = suggest.obj?.name.toString(),
                     subtitle = suggest.obj?.descriptionText.toString(),
                     distance = distanceOf.metrToKM(),
-                    point = foundPoint
+                    allReview = placeMoreData?.ratings,
+                    score = placeMoreData?.score,
+                    latitude = foundPoint!!.latitude,
+                    longitude = foundPoint!!.longitude
                 )
                 Log.d("1997O", "placeM : ")
                 resultTitleList.add(placeM.title)
@@ -218,5 +241,4 @@ class MapFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }
