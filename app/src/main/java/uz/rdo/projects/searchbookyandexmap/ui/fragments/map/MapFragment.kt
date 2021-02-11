@@ -23,6 +23,7 @@ import com.yandex.mapkit.map.GeoObjectSelectionMetadata
 import com.yandex.mapkit.map.VisibleRegionUtils
 import com.yandex.mapkit.search.*
 import com.yandex.runtime.Error
+import uz.rdo.projects.searchbookyandexmap.MainActivity
 import uz.rdo.projects.searchbookyandexmap.R
 import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentMapBinding
@@ -57,18 +58,21 @@ class MapFragment : Fragment() {
         loadObservers()
         loadViews()
         loadMapListeners()
-        setBottomView(null)
     }
 
     private fun setBottomView(placeModel: PlaceModel?) {
+        (requireActivity() as MainActivity).setVisibilityBottomMenu(false)
 
         binding.bottom.apply {
+            root.show()
             btnAddAddressBottom.setOnClickListener {
                 showToast("ai", requireContext())
             }
             imgCloseBottom.setOnClickListener {
                 root.hide()
+                (requireActivity() as MainActivity).setVisibilityBottomMenu(true)
             }
+            txtTitleBottom.text = "qKLDKA AWD"
         }
     }
 
@@ -98,6 +102,7 @@ class MapFragment : Fragment() {
             moveCameraPosition(point)
             hideKeyboard(requireActivity())
             binding.etSearch.setText("")
+            setBottomView(null)
         }
 
     }

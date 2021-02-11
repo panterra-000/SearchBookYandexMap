@@ -6,6 +6,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import uz.rdo.projects.searchbookyandexmap.databinding.ActivityMainBinding
+import uz.rdo.projects.searchbookyandexmap.utils.hide
+import uz.rdo.projects.searchbookyandexmap.utils.show
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,8 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadViews() {
         binding.apply {
-        val navController = findNavController(R.id.navHost)
-        bottomMenuNav.setupWithNavController(navController)
+            val navController = findNavController(R.id.navHost)
+            bottomMenuNav.setupWithNavController(navController)
         }
     }
 
@@ -33,5 +35,15 @@ class MainActivity : AppCompatActivity() {
         _binding = null
 
     }
+
+    fun setVisibilityBottomMenu(isVisible: Boolean) {
+        if (isVisible) {
+            binding.bottomMenuNav.show()
+        } else {
+            binding.bottomMenuNav.hide()
+        }
+
+    }
+
 
 }

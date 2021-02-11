@@ -82,7 +82,7 @@
 
     <include
         android:id="@+id/bottom"
-        android:visibility="visible"
+        android:visibility="gone"
         layout="@layout/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
