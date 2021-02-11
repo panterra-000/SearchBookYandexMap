@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/back_bottom_sheet"
+    android:paddingLeft="24dp"
+    android:paddingTop="20dp"
+    android:paddingRight="24dp"
+    android:paddingBottom="20dp">
+
+    <TextView
+        android:id="@+id/txt_title_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_light"
+        android:maxWidth="270dp"
+        android:text="@string/bottom_title_example"
+        android:textColor="@color/black"
+        android:textSize="@dimen/bottom_title_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_sub_title_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_light"
+        android:paddingTop="4dp"
+        android:text="@string/bottom_sub_title_example"
+        android:textColor="@color/color_subTitle_bottom"
+        android:textSize="@dimen/bottom_sub_title_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/txt_title_bottom"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_title_bottom"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title_bottom" />
+
+    <TextView
+        android:id="@+id/txt_score_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_light"
+        android:paddingTop="4dp"
+        android:text="@string/rating_bottom_example"
+        android:textColor="@color/color_subTitle_bottom"
+        android:textSize="@dimen/bottom_score_size"
+        app:layout_constraintStart_toStartOf="@+id/txt_sub_title_bottom"
+        app:layout_constraintTop_toBottomOf="@+id/txt_sub_title_bottom" />
+
+    <RatingBar
+        android:id="@+id/rating_view"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:progressTint="@color/color_subTitle_bottom"
+        android:rating="4.5"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_score_bottom"
+        app:layout_constraintStart_toEndOf="@+id/txt_score_bottom"
+        app:layout_constraintTop_toTopOf="@+id/txt_score_bottom" />
+
+    <TextView
+        android:id="@+id/txt_review_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:fontFamily="@font/gilroy_light"
+        android:paddingTop="4dp"
+        android:text="@string/example_review_txt"
+        android:textSize="@dimen/bottom_sub_title_size"
+        app:layout_constraintBottom_toBottomOf="@+id/rating_view"
+        app:layout_constraintStart_toEndOf="@+id/rating_view"
+        app:layout_constraintTop_toTopOf="@+id/rating_view" />
+
+
+    <TextView
+        android:id="@+id/txt_closed_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_light"
+        android:paddingTop="4dp"
+        android:text="@string/example_txt_closed_time"
+        android:textSize="@dimen/bottom_sub_title_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/txt_score_bottom"
+        app:layout_constraintTop_toBottomOf="@+id/txt_score_bottom" />
+
+    <ImageView
+        android:id="@+id/img_close_bottom"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/btn_add_address_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/back_btn_bottom"
+        android:fontFamily="@font/gilroy_light"
+        android:paddingStart="12dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="4dp"
+        android:text="@string/example_btn_add_address"
+        android:textColor="@color/white"
+        android:textSize="@dimen/btn_text_size_bottom_sheet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_closed_time" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
@@ -23,7 +24,6 @@ import com.yandex.mapkit.map.VisibleRegionUtils
 import com.yandex.mapkit.search.*
 import com.yandex.runtime.Error
 import uz.rdo.projects.searchbookyandexmap.R
-import uz.rdo.projects.searchbookyandexmap.data.model.PlaceM
 import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentMapBinding
 import uz.rdo.projects.searchbookyandexmap.ui.adapters.recycler.ResultAdapter
@@ -31,9 +31,13 @@ import uz.rdo.projects.searchbookyandexmap.utils.*
 
 class MapFragment : Fragment() {
 
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private var _binding: FragmentMapBinding? = null
     private val binding: FragmentMapBinding
         get() = _binding ?: throw NullPointerException("view is not available")
+
+    private var selectedPlace: PlaceModel? = null
+
 
     private var currentPoint = Point(41.311081, 69.240562)
     private var tappedPoint: Point? = null
@@ -53,7 +57,21 @@ class MapFragment : Fragment() {
         loadObservers()
         loadViews()
         loadMapListeners()
+        setBottomView(null)
     }
+
+    private fun setBottomView(placeModel: PlaceModel?) {
+
+        binding.bottom.apply {
+            btnAddAddressBottom.setOnClickListener {
+                showToast("ai", requireContext())
+            }
+            imgCloseBottom.setOnClickListener {
+                root.hide()
+            }
+        }
+    }
+
 
     private fun loadObservers() {
     }
@@ -74,6 +92,12 @@ class MapFragment : Fragment() {
                 "${placeModel.title} , ${placeModel.subtitle}",
                 Toast.LENGTH_SHORT
             ).show()
+
+            selectedPlace = placeModel
+            val point = Point(placeModel.latitude, placeModel.longitude)
+            moveCameraPosition(point)
+            hideKeyboard(requireActivity())
+            binding.etSearch.setText("")
         }
 
     }

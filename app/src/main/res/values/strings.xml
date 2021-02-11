@@ -11,4 +11,10 @@
     <string name="address_example">Государственый музей истории Тимуридов</string>
     <string name="example_distance">650m</string>
     <string name="example_subtitle">Музей, улица Амира Темура, 1</string>
+    <string name="bottom_title_example">Государственный музей искусств Узбекистана</string>
+    <string name="bottom_sub_title_example">Музей, Развлечения</string>
+    <string name="rating_bottom_example">4.9</string>
+    <string name="example_review_txt">21 отзыв</string>
+    <string name="example_txt_closed_time">Открыто до 17:00</string>
+    <string name="example_btn_add_address">Добавить адрес в избранное</string>
 </resources>

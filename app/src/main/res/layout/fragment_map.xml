@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,72 +7,85 @@
     android:background="@color/colorTextEt"
     tools:context=".ui.fragments.map.MapFragment">
 
-  <com.yandex.mapkit.mapview.MapView
-      android:id="@+id/mapView"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginBottom="20dp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/btn_pin"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/ic_mark"
-        android:text="@string/show_me"
-        app:layout_constraintBottom_toBottomOf="@+id/mapView"
-        app:layout_constraintEnd_toEndOf="@+id/mapView"
-        app:layout_constraintStart_toStartOf="@+id/mapView"
-        app:layout_constraintTop_toTopOf="@+id/mapView" />
+        <com.yandex.mapkit.mapview.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_results"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_rv_result_search"
-        android:paddingLeft="20dp"
-        android:paddingTop="60dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="20dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/et_search"
-        app:layout_constraintStart_toStartOf="@+id/et_search"
-        app:layout_constraintTop_toTopOf="@+id/et_search"
-        tools:itemCount="2"
-        tools:listitem="@layout/item_result" />
+        <ImageView
+            android:id="@+id/btn_pin"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_mark"
+            android:text="@string/show_me"
+            app:layout_constraintBottom_toBottomOf="@+id/mapView"
+            app:layout_constraintEnd_toEndOf="@+id/mapView"
+            app:layout_constraintStart_toStartOf="@+id/mapView"
+            app:layout_constraintTop_toTopOf="@+id/mapView" />
 
-    <EditText
-        android:id="@+id/et_search"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_results"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back_rv_result_search"
+            android:paddingLeft="20dp"
+            android:paddingTop="60dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/et_search"
+            app:layout_constraintStart_toStartOf="@+id/et_search"
+            app:layout_constraintTop_toTopOf="@+id/et_search"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_result" />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edit_text_back"
+            android:drawableStart="@drawable/ic_search"
+            android:drawableEnd="@drawable/ic_action"
+            android:drawablePadding="10dp"
+            android:hint="@string/search"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:textColor="@color/colorTextEt"
+            android:textSize="@dimen/search_txt_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_navigate_me"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="60dp"
+            android:src="@drawable/ic_location_current_icon"
+            android:text="@string/show_me"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/bottom"
+        android:visibility="visible"
+        layout="@layout/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:drawableStart="@drawable/ic_search"
-        android:drawableEnd="@drawable/ic_action"
-        android:drawablePadding="10dp"
-        android:hint="@string/search"
-        android:padding="15dp"
-        android:background="@drawable/edit_text_back"
-        android:singleLine="true"
-        android:textColor="@color/colorTextEt"
-        android:textSize="@dimen/search_txt_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="bottom" />
 
-    <ImageView
-        android:id="@+id/btn_navigate_me"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="60dp"
-        android:src="@drawable/ic_location_current_icon"
-        android:text="@string/show_me"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

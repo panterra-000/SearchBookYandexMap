@@ -16,6 +16,9 @@
     <color name="colorLineRvItem">#EEEEEF</color>
 
 
+    <!--Bottom sheet behavior-->
+    <color name="color_subTitle_bottom">#8E8E93</color>
+    <color name="colorBtnAddBottomSheet">#8FD887</color>
 
 
 </resources>
