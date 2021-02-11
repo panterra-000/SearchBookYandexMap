@@ -1,11 +1,11 @@
 package uz.rdo.projects.searchbookyandexmap.ui.fragments.map
 
 import android.annotation.SuppressLint
-import android.inputmethodservice.Keyboard
 import android.location.Location
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,12 +21,11 @@ import com.yandex.mapkit.map.GeoObjectSelectionMetadata
 import com.yandex.mapkit.map.VisibleRegionUtils
 import com.yandex.mapkit.search.*
 import com.yandex.runtime.Error
+import uz.rdo.projects.searchbookyandexmap.R
 import uz.rdo.projects.searchbookyandexmap.data.model.PlaceM
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentMapBinding
 import uz.rdo.projects.searchbookyandexmap.ui.adapters.recycler.ResultAdapter
-import uz.rdo.projects.searchbookyandexmap.utils.hideKeyboard
-import uz.rdo.projects.searchbookyandexmap.utils.metrToKM
-import uz.rdo.projects.searchbookyandexmap.utils.showToast
+import uz.rdo.projects.searchbookyandexmap.utils.*
 
 class MapFragment : Fragment() {
 
@@ -74,6 +73,7 @@ class MapFragment : Fragment() {
             addCameraListener(cameraPositionListener)
             addTapListener(geoObjectTapListener)
         }
+
         loadSuggestListener()
     }
 
@@ -125,13 +125,9 @@ class MapFragment : Fragment() {
 
         binding.etSearch.addTextChangedListener(
             object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {
-                    binding.rvResults.visibility =
-                        if (s.toString().trim() == "") {
-                            View.GONE
-                        } else {
-                            View.VISIBLE
-                        }
+                override fun afterTextChanged(text: Editable?) {
+
+                    Log.d("tto", "dddddd tto ttto ttto ttto ttto ttto tttto ttttto ")
                 }
 
                 override fun beforeTextChanged(
@@ -140,15 +136,30 @@ class MapFragment : Fragment() {
                     count: Int,
                     after: Int
                 ) {
+                }
+
+                @SuppressLint("UseCompatLoadingForDrawables")
+                override fun onTextChanged(
+                    text: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
                     searchManager.submit(
                         text.toString(),
                         VisibleRegionUtils.toPolygon(binding.mapView.map.visibleRegion),
                         SearchOptions(),
                         searchListener
                     )
-                }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                    var drawable = requireActivity().resources.getDrawable(R.drawable.ic_close)
+
+                    if (text.toString().trim() == "") {
+                        binding.rvResults.hide()
+                    } else {
+                        binding.rvResults.show()
+                    }
+                }
             })
     }
 
@@ -181,12 +192,12 @@ class MapFragment : Fragment() {
                     subtitle = suggest.obj?.descriptionText.toString(),
                     distance = distanceOf.metrToKM(),
                     point = foundPoint
-
                 )
-
+                Log.d("1997O", "placeM : ")
                 resultTitleList.add(placeM.title)
                 resultList.add(placeM)
             }
+//            showToast(resultList.toString(), requireContext())
             adapter?.submitList(resultList)
         }
     }
