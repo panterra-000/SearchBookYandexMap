@@ -15,6 +15,7 @@
     <string name="bottom_sub_title_example">Музей, Развлечения</string>
     <string name="rating_bottom_example">4.9</string>
     <string name="example_review_txt">21 отзыв</string>
+    <string name="review_txt">отзыв</string>
     <string name="example_txt_closed_time">Открыто до 17:00</string>
     <string name="example_btn_add_address">Добавить адрес в избранное</string>
 </resources>

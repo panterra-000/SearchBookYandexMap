@@ -43,11 +43,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/gilroy_light"
         android:paddingTop="4dp"
-        android:text="@string/rating_bottom_example"
         android:textColor="@color/color_subTitle_bottom"
         android:textSize="@dimen/bottom_score_size"
         app:layout_constraintStart_toStartOf="@+id/txt_sub_title_bottom"
-        app:layout_constraintTop_toBottomOf="@+id/txt_sub_title_bottom" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_sub_title_bottom"
+        tools:text="@string/rating_bottom_example" />
 
     <RatingBar
         android:id="@+id/rating_view"
@@ -68,11 +68,11 @@
         android:layout_marginStart="7dp"
         android:fontFamily="@font/gilroy_light"
         android:paddingTop="4dp"
-        android:text="@string/example_review_txt"
         android:textSize="@dimen/bottom_sub_title_size"
         app:layout_constraintBottom_toBottomOf="@+id/rating_view"
         app:layout_constraintStart_toEndOf="@+id/rating_view"
-        app:layout_constraintTop_toTopOf="@+id/rating_view" />
+        app:layout_constraintTop_toTopOf="@+id/rating_view"
+        tools:text="@string/example_review_txt" />
 
 
     <TextView
@@ -81,11 +81,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/gilroy_light"
         android:paddingTop="4dp"
-        android:text="@string/example_txt_closed_time"
         android:textSize="@dimen/bottom_sub_title_size"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/txt_score_bottom"
-        app:layout_constraintTop_toBottomOf="@+id/txt_score_bottom" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_score_bottom"
+        tools:text="@string/example_txt_closed_time" />
 
     <ImageView
         android:id="@+id/img_close_bottom"

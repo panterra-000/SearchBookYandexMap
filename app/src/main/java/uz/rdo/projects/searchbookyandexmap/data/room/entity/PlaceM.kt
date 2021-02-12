@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity
-class PlaceModel(
+data class PlaceModel(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
     var title: String,

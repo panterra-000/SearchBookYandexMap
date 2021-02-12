@@ -17,6 +17,7 @@ import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.GeoObjectTapListener
+import com.yandex.mapkit.layers.ObjectEvent
 import com.yandex.mapkit.map.CameraListener
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.GeoObjectSelectionMetadata
@@ -37,8 +38,7 @@ class MapFragment : Fragment() {
     private val binding: FragmentMapBinding
         get() = _binding ?: throw NullPointerException("view is not available")
 
-    private var selectedPlace: PlaceModel? = null
-
+    private var clickedPlaceModel: PlaceModel? = null
 
     private var currentPoint = Point(41.311081, 69.240562)
     private var tappedPoint: Point? = null
@@ -60,8 +60,39 @@ class MapFragment : Fragment() {
         loadMapListeners()
     }
 
-    private fun setBottomView(placeModel: PlaceModel?) {
+    /////
+    ////
+    //// BOOOOOOOTTTTOOOOMMMMMSHHHHSHHHSHHHSHEEEEETTTTTT
+
+
+    @SuppressLint("SetTextI18n")
+    private fun setBottomView(selectedPlaceM: PlaceModel) {
         showBottomSheet()
+        binding.bottom.apply {
+            txtTitleBottom.text = selectedPlaceM.title
+            txtSubTitleBottom.text = selectedPlaceM.subtitle
+
+            val score = selectedPlaceM.score
+            val review = selectedPlaceM.allReview
+
+
+            if (score != null && review != null) {
+                txtScoreBottom.text = score.toString()
+                ratingView.rating = score
+                txtReviewBottom.text =
+                    review.toString() + " ${resources.getString(R.string.review_txt)}"
+                txtScoreBottom.show()
+                ratingView.show()
+                txtReviewBottom.show()
+            } else {
+                txtScoreBottom.hide()
+                ratingView.hide()
+                txtReviewBottom.hide()
+            }
+        }
+    }
+
+    private fun setBottomButtonClicks() {
         binding.bottom.apply {
             btnAddAddressBottom.setOnClickListener {
                 showToast("ai", requireContext())
@@ -69,7 +100,6 @@ class MapFragment : Fragment() {
             imgCloseBottom.setOnClickListener {
                 hideBottomSheet()
             }
-            txtTitleBottom.text = "qKLDKA AWD"
         }
     }
 
@@ -82,7 +112,6 @@ class MapFragment : Fragment() {
         binding.bottom.root.show()
         (requireActivity() as MainActivity).setVisibilityBottomMenu(false)
     }
-
 
     private fun loadObservers() {
     }
@@ -99,20 +128,16 @@ class MapFragment : Fragment() {
 
         adapter!!.setOnclickItemListener { placeModel ->
 
-            /*    Toast.makeText(
-                    requireContext(),
-                    "${placeModel.title} , ${placeModel.subtitle}",
-                    Toast.LENGTH_SHORT
-                ).show()*/
-
-            selectedPlace = placeModel
+            clickedPlaceModel = placeModel
             val point = Point(placeModel.latitude, placeModel.longitude)
             moveCameraPosition(point)
             hideKeyboard(requireActivity())
             binding.etSearch.setText("")
-            setBottomView(null)
+            clickedPlaceModel?.let { clickedPlaceModel ->
+                setBottomView(clickedPlaceModel)
+            }
         }
-
+        setBottomButtonClicks()
     }
 
     private fun loadMapListeners() {
@@ -134,21 +159,48 @@ class MapFragment : Fragment() {
             }
         }
     private val geoObjectTapListener = GeoObjectTapListener { geoObjectTapEvent ->
-        val name = geoObjectTapEvent.geoObject.name
+
+
         val selectionMetadata = geoObjectTapEvent.geoObject.metadataContainer.getItem(
             GeoObjectSelectionMetadata::class.java
         )
 
+        val businessData =
+            geoObjectTapEvent.geoObject.metadataContainer.getItem(BusinessRating1xObjectMetadata::class.java)
+
+
+        val currentLocation = Location("current")
+        val foundLocation = Location("found")
+        var distance = 0F
+
+        val title = geoObjectTapEvent.geoObject.name
+        val subTitle = geoObjectTapEvent.geoObject.descriptionText
         var latitude = geoObjectTapEvent.geoObject.geometry[0].point?.latitude
         var longitude = geoObjectTapEvent.geoObject.geometry[0].point?.longitude
-
-
-        showToast(" x = $latitude ,y = $longitude", requireContext())
+        if (latitude != 0.0) {
+            foundLocation.latitude = latitude!!
+            foundLocation.longitude = longitude!!
+            distance = currentLocation.distanceTo(foundLocation)
+        }
 
         if (latitude != null && longitude != null) {
             tappedPoint = Point(latitude, longitude)
             hideKeyboard(requireActivity())
             moveCameraPosition(tappedPoint!!)
+
+            val placeModel = PlaceModel(
+                id = 0,
+                title = title ?: " Title Not found",
+                subtitle = subTitle ?: "Description Not found",
+                distance = if (distance == 0.0F) "Nan" else distance.metrToKM(),
+                allReview = null,
+                score = null,
+                longitude = longitude,
+                latitude = latitude
+            )
+
+            setBottomView(placeModel)
+
         }
 
         selectionMetadata != null
@@ -215,7 +267,6 @@ class MapFragment : Fragment() {
 
         override fun onSearchResponse(response: Response) {
             val resultList = ArrayList<PlaceModel>()
-            val resultTitleList = ArrayList<String>()
 
             for (suggest in response.collection.children) {
 
@@ -249,14 +300,12 @@ class MapFragment : Fragment() {
                     longitude = foundPoint!!.longitude
                 )
                 Log.d("1997O", "placeM : ")
-                resultTitleList.add(placeM.title)
                 resultList.add(placeM)
             }
 //            showToast(resultList.toString(), requireContext())
             adapter?.submitList(resultList)
         }
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -274,4 +323,6 @@ class MapFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 }
+
