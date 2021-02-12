@@ -61,19 +61,26 @@ class MapFragment : Fragment() {
     }
 
     private fun setBottomView(placeModel: PlaceModel?) {
-        (requireActivity() as MainActivity).setVisibilityBottomMenu(false)
-
+        showBottomSheet()
         binding.bottom.apply {
-            root.show()
             btnAddAddressBottom.setOnClickListener {
                 showToast("ai", requireContext())
             }
             imgCloseBottom.setOnClickListener {
-                root.hide()
-                (requireActivity() as MainActivity).setVisibilityBottomMenu(true)
+                hideBottomSheet()
             }
             txtTitleBottom.text = "qKLDKA AWD"
         }
+    }
+
+    private fun hideBottomSheet() {
+        binding.bottom.root.hide()
+        (requireActivity() as MainActivity).setVisibilityBottomMenu(true)
+    }
+
+    private fun showBottomSheet() {
+        binding.bottom.root.show()
+        (requireActivity() as MainActivity).setVisibilityBottomMenu(false)
     }
 
 
@@ -92,11 +99,11 @@ class MapFragment : Fragment() {
 
         adapter!!.setOnclickItemListener { placeModel ->
 
-        /*    Toast.makeText(
-                requireContext(),
-                "${placeModel.title} , ${placeModel.subtitle}",
-                Toast.LENGTH_SHORT
-            ).show()*/
+            /*    Toast.makeText(
+                    requireContext(),
+                    "${placeModel.title} , ${placeModel.subtitle}",
+                    Toast.LENGTH_SHORT
+                ).show()*/
 
             selectedPlace = placeModel
             val point = Point(placeModel.latitude, placeModel.longitude)
@@ -117,10 +124,8 @@ class MapFragment : Fragment() {
         loadSuggestListener()
     }
 
-    // map listeneres
-
     @SuppressLint("SetTextI18n")
-    private val cameraPositionListener: CameraListener =
+    private val cameraPositionListener =
         CameraListener { p0, cameraPosition, cameraUpdateReason, isStopped ->
             if (cameraPosition.target.latitude !== 0.0) {
                 if (isStopped) {
@@ -128,8 +133,6 @@ class MapFragment : Fragment() {
                 }
             }
         }
-
-
     private val geoObjectTapListener = GeoObjectTapListener { geoObjectTapEvent ->
         val name = geoObjectTapEvent.geoObject.name
         val selectionMetadata = geoObjectTapEvent.geoObject.metadataContainer.getItem(
@@ -185,10 +188,8 @@ class MapFragment : Fragment() {
                     before: Int,
                     count: Int
                 ) {
-
                     val searchOption = SearchOptions()
                     searchOption.snippets = Snippet.BUSINESS_RATING1X.value
-
                     searchManager.submit(
                         text.toString(),
                         VisibleRegionUtils.toPolygon(binding.mapView.map.visibleRegion),
@@ -202,6 +203,7 @@ class MapFragment : Fragment() {
                         binding.rvResults.hide()
                     } else {
                         binding.rvResults.show()
+                        hideBottomSheet()
                     }
                 }
             })
@@ -254,6 +256,7 @@ class MapFragment : Fragment() {
             adapter?.submitList(resultList)
         }
     }
+
 
     override fun onStart() {
         super.onStart()

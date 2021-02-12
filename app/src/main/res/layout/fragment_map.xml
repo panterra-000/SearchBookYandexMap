@@ -26,6 +26,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:src="@drawable/ic_mark"
+            android:layout_marginBottom="64dp"
             android:text="@string/show_me"
             app:layout_constraintBottom_toBottomOf="@+id/mapView"
             app:layout_constraintEnd_toEndOf="@+id/mapView"
