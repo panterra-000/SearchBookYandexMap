@@ -152,18 +152,31 @@ class MapFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private val cameraPositionListener =
         CameraListener { p0, cameraPosition, cameraUpdateReason, isStopped ->
+
+            binding.tRV.text = "Yurvotiiii ........"
+
+            var lat = cameraPosition.target.latitude
+            var long = cameraPosition.target.longitude
+
             if (cameraPosition.target.latitude !== 0.0) {
                 if (isStopped) {
+                    binding.tRV.text = "qoyib yuborildi !!!"
                     binding.mapView.map.deselectGeoObject()
+
                 }
             }
         }
     private val geoObjectTapListener = GeoObjectTapListener { geoObjectTapEvent ->
 
-
         val selectionMetadata = geoObjectTapEvent.geoObject.metadataContainer.getItem(
             GeoObjectSelectionMetadata::class.java
         )
+
+        binding.tRV.text = if (geoObjectTapEvent != null) {
+            "bosildi"
+        } else {
+            "qoyib yuborildi"
+        }
 
         val businessData =
             geoObjectTapEvent.geoObject.metadataContainer.getItem(BusinessRating1xObjectMetadata::class.java)
