@@ -58,6 +58,7 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/edit_text_back"
             android:drawableStart="@drawable/ic_search"
+            android:drawableTint="@color/white"
             android:drawableEnd="@drawable/ic_action"
             android:drawablePadding="10dp"
             android:hint="@string/search"

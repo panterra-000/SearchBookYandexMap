@@ -18,4 +18,7 @@
     <string name="review_txt">отзыв</string>
     <string name="example_txt_closed_time">Открыто до 17:00</string>
     <string name="example_btn_add_address">Добавить адрес в избранное</string>
+    <string name="add_address_title">Добавить адрес в избранное</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
 </resources>

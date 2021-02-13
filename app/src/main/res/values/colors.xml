@@ -10,8 +10,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Main activity -->
-    <color name="colorBackSearchET">#809D9DA8</color>
-    <color name="colorTextEt">#989898</color>
+    <color name="colorBackSearchET">#CC9D9DA8</color>
+    <color name="colorTextEt">#EFE6E6</color>
     <color name="colorItemRvText">#8E8E93</color>
     <color name="colorLineRvItem">#EEEEEF</color>
 
@@ -19,6 +19,9 @@
     <!--Bottom sheet behavior-->
     <color name="color_subTitle_bottom">#8E8E93</color>
     <color name="colorBtnAddBottomSheet">#8FD887</color>
+
+    <!--Dialog add address-->
+    <color name="colorLineDialog">#EEEEEF</color>
 
 
 </resources>

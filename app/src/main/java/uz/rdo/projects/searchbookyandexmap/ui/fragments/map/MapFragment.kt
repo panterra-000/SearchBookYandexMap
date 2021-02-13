@@ -27,8 +27,10 @@ import com.yandex.runtime.Error
 import uz.rdo.projects.searchbookyandexmap.MainActivity
 import uz.rdo.projects.searchbookyandexmap.R
 import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
+import uz.rdo.projects.searchbookyandexmap.databinding.DialogAddAddressBinding
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentMapBinding
 import uz.rdo.projects.searchbookyandexmap.ui.adapters.recycler.ResultAdapter
+import uz.rdo.projects.searchbookyandexmap.ui.dialog.AddressSaveDialog
 import uz.rdo.projects.searchbookyandexmap.utils.*
 
 class MapFragment : Fragment() {
@@ -75,7 +77,6 @@ class MapFragment : Fragment() {
             val score = selectedPlaceM.score
             val review = selectedPlaceM.allReview
 
-
             if (score != null && review != null) {
                 txtScoreBottom.text = score.toString()
                 ratingView.rating = score
@@ -89,18 +90,20 @@ class MapFragment : Fragment() {
                 ratingView.hide()
                 txtReviewBottom.hide()
             }
-        }
-    }
 
-    private fun setBottomButtonClicks() {
-        binding.bottom.apply {
             btnAddAddressBottom.setOnClickListener {
-                showToast("ai", requireContext())
+
+                val dialog = AddressSaveDialog(requireActivity(),selectedPlaceM)
+                dialog.show()
             }
             imgCloseBottom.setOnClickListener {
                 hideBottomSheet()
             }
         }
+    }
+
+    private fun setBottomButtonClicks() {
+
     }
 
     private fun hideBottomSheet() {
@@ -137,7 +140,6 @@ class MapFragment : Fragment() {
                 setBottomView(clickedPlaceModel)
             }
         }
-        setBottomButtonClicks()
     }
 
     private fun loadMapListeners() {
@@ -166,6 +168,7 @@ class MapFragment : Fragment() {
                 }
             }
         }
+
     private val geoObjectTapListener = GeoObjectTapListener { geoObjectTapEvent ->
 
         val selectionMetadata = geoObjectTapEvent.geoObject.metadataContainer.getItem(
@@ -213,9 +216,7 @@ class MapFragment : Fragment() {
             )
 
             setBottomView(placeModel)
-
         }
-
         selectionMetadata != null
     }
 
@@ -317,6 +318,7 @@ class MapFragment : Fragment() {
             }
 //            showToast(resultList.toString(), requireContext())
             adapter?.submitList(resultList)
+
         }
     }
 
