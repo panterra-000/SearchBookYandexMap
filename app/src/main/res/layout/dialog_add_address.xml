@@ -62,6 +62,7 @@
         android:id="@+id/btn_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:background="@drawable/back_btn_cancel_dialog"
         android:fontFamily="@font/gilroy_light"
         android:text="@string/cancel"

@@ -9,15 +9,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.GeoObjectTapListener
-import com.yandex.mapkit.layers.ObjectEvent
 import com.yandex.mapkit.map.CameraListener
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.GeoObjectSelectionMetadata
@@ -26,26 +25,31 @@ import com.yandex.mapkit.search.*
 import com.yandex.runtime.Error
 import uz.rdo.projects.searchbookyandexmap.MainActivity
 import uz.rdo.projects.searchbookyandexmap.R
+import uz.rdo.projects.searchbookyandexmap.data.room.dao.PlaceMDao
+import uz.rdo.projects.searchbookyandexmap.data.room.db.MyDataBase
+import uz.rdo.projects.searchbookyandexmap.data.room.db.MyDataBase_Impl
 import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
-import uz.rdo.projects.searchbookyandexmap.databinding.DialogAddAddressBinding
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentMapBinding
 import uz.rdo.projects.searchbookyandexmap.ui.adapters.recycler.ResultAdapter
+import uz.rdo.projects.searchbookyandexmap.ui.base.MapViewModelFactory
 import uz.rdo.projects.searchbookyandexmap.ui.dialog.AddressSaveDialog
 import uz.rdo.projects.searchbookyandexmap.utils.*
 
 class MapFragment : Fragment() {
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+
     private var _binding: FragmentMapBinding? = null
     private val binding: FragmentMapBinding
         get() = _binding ?: throw NullPointerException("view is not available")
 
-    private var clickedPlaceModel: PlaceModel? = null
+    private lateinit var viewModel: MapViewModel
 
+    private var clickedPlaceModel: PlaceModel? = null
     private var currentPoint = Point(41.311081, 69.240562)
     private var tappedPoint: Point? = null
 
-    private var adapter: ResultAdapter? = null
+    private lateinit var adapter: ResultAdapter
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,7 +72,7 @@ class MapFragment : Fragment() {
 
 
     @SuppressLint("SetTextI18n")
-    private fun setBottomView(selectedPlaceM: PlaceModel) {
+    private fun setBottomSheet(selectedPlaceM: PlaceModel) {
         showBottomSheet()
         binding.bottom.apply {
             txtTitleBottom.text = selectedPlaceM.title
@@ -93,17 +97,17 @@ class MapFragment : Fragment() {
 
             btnAddAddressBottom.setOnClickListener {
 
-                val dialog = AddressSaveDialog(requireActivity(),selectedPlaceM)
+                val dialog = AddressSaveDialog(requireActivity(), selectedPlaceM)
                 dialog.show()
+
+                dialog.setOnclickSaveCallback { placeModel ->
+
+                }
             }
             imgCloseBottom.setOnClickListener {
                 hideBottomSheet()
             }
         }
-    }
-
-    private fun setBottomButtonClicks() {
-
     }
 
     private fun hideBottomSheet() {
@@ -114,6 +118,15 @@ class MapFragment : Fragment() {
     private fun showBottomSheet() {
         binding.bottom.root.show()
         (requireActivity() as MainActivity).setVisibilityBottomMenu(false)
+    }
+
+    private fun setupViewModel() {
+        val dao = MyDataBase.getDatabase().placeModelDao()
+        var repositoryImpl = MapRepositoryImpl(dao)
+        viewModel = ViewModelProviders.of(
+            this,
+            MapViewModelFactory(repositoryImpl)
+        ).get(MapViewModel::class.java)
     }
 
     private fun loadObservers() {
@@ -137,7 +150,7 @@ class MapFragment : Fragment() {
             hideKeyboard(requireActivity())
             binding.etSearch.setText("")
             clickedPlaceModel?.let { clickedPlaceModel ->
-                setBottomView(clickedPlaceModel)
+                setBottomSheet(clickedPlaceModel)
             }
         }
     }
@@ -156,7 +169,7 @@ class MapFragment : Fragment() {
         CameraListener { p0, cameraPosition, cameraUpdateReason, isStopped ->
 
             binding.tRV.text = "Yurvotiiii ........"
-
+            binding.btnPin.changeFormer()
             var lat = cameraPosition.target.latitude
             var long = cameraPosition.target.longitude
 
@@ -164,7 +177,7 @@ class MapFragment : Fragment() {
                 if (isStopped) {
                     binding.tRV.text = "qoyib yuborildi !!!"
                     binding.mapView.map.deselectGeoObject()
-
+                    binding.btnPin.resumeFormer()
                 }
             }
         }
@@ -215,7 +228,7 @@ class MapFragment : Fragment() {
                 latitude = latitude
             )
 
-            setBottomView(placeModel)
+            setBottomSheet(placeModel)
         }
         selectionMetadata != null
     }
@@ -338,6 +351,7 @@ class MapFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 
 }
 

@@ -18,3 +18,7 @@ class MapViewModel(private val mapRepository: MapRepository) : ViewModel() {
         }
     }
 }
+
+
+
+
