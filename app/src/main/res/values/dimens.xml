@@ -7,4 +7,7 @@
     <dimen name="bottom_score_size">15sp</dimen>
     <dimen name="btn_text_size_bottom_sheet">15sp</dimen>
     <dimen name="title_txt_size_dialog">17sp</dimen>
+    <dimen name="normal_margin_top_shade">5dp</dimen>
+    <dimen name="out_margin_top_shade">15dp</dimen>
+
 </resources>

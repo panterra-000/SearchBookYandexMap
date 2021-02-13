@@ -22,6 +22,7 @@
 
     <!--Dialog add address-->
     <color name="colorLineDialog">#EEEEEF</color>
+    <color name="colorShade">#8F553634</color>
 
 
 </resources>

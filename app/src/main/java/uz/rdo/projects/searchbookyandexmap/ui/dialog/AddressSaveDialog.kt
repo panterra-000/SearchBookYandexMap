@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AlertDialog
+import uz.rdo.projects.searchbookyandexmap.R
 import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
 import uz.rdo.projects.searchbookyandexmap.databinding.DialogAddAddressBinding
 import uz.rdo.projects.searchbookyandexmap.utils.showToast
@@ -22,14 +23,23 @@ class AddressSaveDialog(private val activity: Activity, private val placeModel: 
         setView(binding.root)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         loadViews()
+
     }
 
     private fun loadViews() {
         binding.apply {
             etNameAddress.setText(placeModel.title)
+            etNameAddress.isEnabled = editable
+
             imgEdit.setOnClickListener {
-                    editable = !editable
-                    etNameAddress.isEnabled = editable
+                val dr = if (editable) {
+                    R.drawable.ic_edit_24
+                } else {
+                    R.drawable.ic_edit_2
+                }
+                editable = !editable
+                imgEdit.setImageResource(dr)
+                etNameAddress.isEnabled = editable
             }
 
             btnCancel.setOnClickListener {
@@ -39,8 +49,12 @@ class AddressSaveDialog(private val activity: Activity, private val placeModel: 
             btnSave.setOnClickListener {
                 showToast("Saved ...", activity)
             }
-
-
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        _binding = null
+    }
+
 }

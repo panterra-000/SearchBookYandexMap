@@ -21,17 +21,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <View
+            android:id="@+id/shade"
+            android:layout_width="30dp"
+            android:layout_height="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/back_oval"
+            app:layout_constraintBottom_toBottomOf="@+id/mapView"
+            app:layout_constraintEnd_toEndOf="@id/mapView"
+            app:layout_constraintStart_toStartOf="@+id/mapView"
+            app:layout_constraintTop_toTopOf="@+id/mapView" />
+
         <ImageView
             android:id="@+id/btn_pin"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/ic_mark"
-            android:layout_marginBottom="64dp"
-            android:text="@string/show_me"
-            app:layout_constraintBottom_toBottomOf="@+id/mapView"
-            app:layout_constraintEnd_toEndOf="@+id/mapView"
-            app:layout_constraintStart_toStartOf="@+id/mapView"
-            app:layout_constraintTop_toTopOf="@+id/mapView" />
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/location_pin_black"
+            app:layout_constraintBottom_toBottomOf="@+id/shade"
+            app:layout_constraintEnd_toEndOf="@+id/shade"
+            app:layout_constraintStart_toStartOf="@+id/shade" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_results"
@@ -58,9 +68,9 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/edit_text_back"
             android:drawableStart="@drawable/ic_search"
-            android:drawableTint="@color/white"
             android:drawableEnd="@drawable/ic_action"
             android:drawablePadding="10dp"
+            android:drawableTint="@color/white"
             android:hint="@string/search"
             android:padding="15dp"
             android:singleLine="true"
@@ -77,7 +87,6 @@
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="60dp"
             android:src="@drawable/ic_location_current_icon"
-            android:text="@string/show_me"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -96,10 +105,10 @@
 
     <include
         android:id="@+id/bottom"
-        android:visibility="gone"
         layout="@layout/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
