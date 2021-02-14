@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -25,18 +26,15 @@ import com.yandex.mapkit.search.*
 import com.yandex.runtime.Error
 import uz.rdo.projects.searchbookyandexmap.MainActivity
 import uz.rdo.projects.searchbookyandexmap.R
-import uz.rdo.projects.searchbookyandexmap.data.room.dao.PlaceMDao
 import uz.rdo.projects.searchbookyandexmap.data.room.db.MyDataBase
-import uz.rdo.projects.searchbookyandexmap.data.room.db.MyDataBase_Impl
 import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentMapBinding
 import uz.rdo.projects.searchbookyandexmap.ui.adapters.recycler.ResultAdapter
-import uz.rdo.projects.searchbookyandexmap.ui.base.MapViewModelFactory
+import uz.rdo.projects.searchbookyandexmap.ui.baseFactories.MapViewModelFactory
 import uz.rdo.projects.searchbookyandexmap.ui.dialog.AddressSaveDialog
 import uz.rdo.projects.searchbookyandexmap.utils.*
 
 class MapFragment : Fragment() {
-
 
     private var _binding: FragmentMapBinding? = null
     private val binding: FragmentMapBinding
@@ -61,15 +59,11 @@ class MapFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupViewModel()
         loadObservers()
         loadViews()
         loadMapListeners()
     }
-
-    /////
-    ////
-    //// BOOOOOOOTTTTOOOOMMMMMSHHHHSHHHSHHHSHEEEEETTTTTT
-
 
     @SuppressLint("SetTextI18n")
     private fun setBottomSheet(selectedPlaceM: PlaceModel) {
@@ -101,7 +95,7 @@ class MapFragment : Fragment() {
                 dialog.show()
 
                 dialog.setOnclickSaveCallback { placeModel ->
-
+                    viewModel.addPlaceModelToDB(placeModel)
                 }
             }
             imgCloseBottom.setOnClickListener {
@@ -129,7 +123,13 @@ class MapFragment : Fragment() {
         ).get(MapViewModel::class.java)
     }
 
+    @SuppressLint("FragmentLiveDataObserve")
     private fun loadObservers() {
+        viewModel.resultLiveData.observe(this, addToDB)
+    }
+
+    private val addToDB = Observer<Boolean> {
+        showToast("Yes, added !!!", requireContext())
     }
 
     private fun loadViews() {

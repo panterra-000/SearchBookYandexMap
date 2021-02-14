@@ -1,4 +1,4 @@
-package uz.rdo.projects.searchbookyandexmap.ui.base
+package uz.rdo.projects.searchbookyandexmap.ui.baseFactories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
