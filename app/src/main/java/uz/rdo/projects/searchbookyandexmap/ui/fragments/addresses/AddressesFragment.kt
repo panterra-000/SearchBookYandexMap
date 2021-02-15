@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import uz.rdo.projects.searchbookyandexmap.data.room.db.MyDataBase
 import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentAddressesBinding
+import uz.rdo.projects.searchbookyandexmap.ui.adapters.recycler.MyAddressesAdapter
 import uz.rdo.projects.searchbookyandexmap.ui.baseFactories.AddressesViewModelFactory
 
 class AddressesFragment : Fragment() {
@@ -20,6 +23,7 @@ class AddressesFragment : Fragment() {
         get() = _binding ?: throw NullPointerException("dddd null pointer exception")
 
     lateinit var viewModel: AddressesViewModel
+    lateinit var adapter: MyAddressesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +42,7 @@ class AddressesFragment : Fragment() {
         viewModel.getAllPlacesList()
     }
 
+
     @SuppressLint("FragmentLiveDataObserve")
     private fun loadObservers() {
         viewModel.resultPlacesList.observe(this, getPlacesListObserver)
@@ -45,15 +50,13 @@ class AddressesFragment : Fragment() {
         viewModel.resultDeletePlace.observe(this, delPlaceObserver)
     }
 
-
     private val getPlacesListObserver = Observer<List<PlaceModel>> { placesList ->
-        // TODO: 15.02.2021  
+        adapter.submitList(placesList as ArrayList<PlaceModel>)
     }
 
     private val delPlaceListObserver = Observer<Int> {
         if (it >= 0) {
-         
-            
+            adapter.submitList(arrayListOf())
         }
     }
 
@@ -64,6 +67,13 @@ class AddressesFragment : Fragment() {
     private fun loadViews() {
         binding.btnDelAll.setOnClickListener {
             viewModel.deleteAllPlaceList()
+        }
+        binding.rvMyPlaces.layoutManager = LinearLayoutManager(requireContext())
+        adapter = MyAddressesAdapter(arrayListOf())
+        binding.rvMyPlaces.adapter = adapter
+
+        adapter.setOnclickItemListener {
+            // TODO: 15.02.2021  CLICK DELETE DIALOG
         }
     }
 
@@ -80,4 +90,5 @@ class AddressesFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 }

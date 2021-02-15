@@ -49,6 +49,8 @@ class MapFragment : Fragment() {
     private lateinit var adapter: ResultAdapter
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
+    private lateinit var dialog: AddressSaveDialog
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -91,7 +93,7 @@ class MapFragment : Fragment() {
 
             btnAddAddressBottom.setOnClickListener {
 
-                val dialog = AddressSaveDialog(requireActivity(), selectedPlaceM)
+                dialog = AddressSaveDialog(requireActivity(), selectedPlaceM)
                 dialog.show()
 
                 dialog.setOnclickSaveCallback { placeModel ->
@@ -130,6 +132,8 @@ class MapFragment : Fragment() {
 
     private val addToDB = Observer<Boolean> {
         showToast("Yes, added !!!", requireContext())
+        dialog.dismiss()
+        hideBottomSheet()
     }
 
     private fun loadViews() {

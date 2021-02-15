@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
     android:layout_marginStart="13dp"
+    android:layout_marginTop="16dp"
     android:layout_marginEnd="13dp"
+    android:paddingBottom="14dp"
     android:background="@drawable/back_dialog_add"
     android:minHeight="80dp">
 
@@ -19,6 +20,7 @@
         android:paddingTop="4dp"
         android:textSize="@dimen/bottom_sub_title_size"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/txt_score"
         app:layout_constraintStart_toEndOf="@+id/rating_v"
         app:layout_constraintTop_toTopOf="@+id/txt_score"
@@ -33,6 +35,7 @@
         android:layout_marginStart="10dp"
         android:progressTint="@color/color_subTitle_bottom"
         android:rating="4.5"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/txt_score"
         app:layout_constraintStart_toEndOf="@+id/txt_score" />
 
@@ -46,6 +49,7 @@
         android:paddingTop="4dp"
         android:textColor="@color/color_subTitle_bottom"
         android:textSize="@dimen/bottom_score_size"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/txt_subtitle"
         app:layout_constraintTop_toBottomOf="@+id/txt_subtitle"

@@ -19,7 +19,6 @@ class AddressesViewModel(private val addressesRepository: AddressesRepository) :
     val resultDeletePlace: LiveData<Boolean> get() = _resultDeletePlace
 
 
-
     fun getAllPlacesList() {
         _resultPlacesList.addSourceDisposable(addressesRepository.getAllPlacesFromDB()) { allPlacesList ->
             _resultPlacesList.value = allPlacesList
