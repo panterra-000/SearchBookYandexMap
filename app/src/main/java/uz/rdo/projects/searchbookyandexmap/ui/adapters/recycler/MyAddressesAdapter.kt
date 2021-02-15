@@ -14,6 +14,9 @@ class MyAddressesAdapter(private val placeList: ArrayList<PlaceModel>) :
 
     private var listenClick: SingleBlock<PlaceModel>? = null
 
+    private var listenClickLocation: SingleBlock<PlaceModel>? = null
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultHolder = ResultHolder(
         ItemPlaceDescBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
@@ -39,6 +42,7 @@ class MyAddressesAdapter(private val placeList: ArrayList<PlaceModel>) :
                     txtScore.text = "${placeList[adapterPosition].score}"
                 }
                 root.setOnClickListener { listenClick?.invoke(placeList[adapterPosition]) }
+                imageView.setOnClickListener { listenClickLocation?.invoke(placeList[adapterPosition]) }
             }
         }
     }
@@ -52,4 +56,9 @@ class MyAddressesAdapter(private val placeList: ArrayList<PlaceModel>) :
     fun setOnclickItemListener(f: SingleBlock<PlaceModel>) {
         listenClick = f
     }
+
+    fun setOnclickCallbackLocation(f: SingleBlock<PlaceModel>) {
+        listenClickLocation = f
+    }
+
 }

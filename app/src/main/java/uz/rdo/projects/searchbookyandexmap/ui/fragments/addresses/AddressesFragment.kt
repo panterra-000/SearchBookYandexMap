@@ -2,21 +2,21 @@ package uz.rdo.projects.searchbookyandexmap.ui.fragments.addresses
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import uz.rdo.projects.searchbookyandexmap.data.room.db.MyDataBase
 import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
-import uz.rdo.projects.searchbookyandexmap.databinding.DialogDelAddressBinding
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentAddressesBinding
 import uz.rdo.projects.searchbookyandexmap.ui.adapters.recycler.MyAddressesAdapter
 import uz.rdo.projects.searchbookyandexmap.ui.baseFactories.AddressesViewModelFactory
 import uz.rdo.projects.searchbookyandexmap.ui.dialog.AddressDeleteDialog
+import uz.rdo.projects.searchbookyandexmap.utils.showToast
 
 class AddressesFragment : Fragment() {
 
@@ -87,6 +87,11 @@ class AddressesFragment : Fragment() {
                 adapter.submitList(mPlacesList)
             }
         }
+
+        adapter.setOnclickCallbackLocation {
+            showToast("show show show", requireContext())
+        }
+
     }
 
     private fun setupViewModel() {
