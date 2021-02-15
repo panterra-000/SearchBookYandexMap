@@ -27,7 +27,6 @@
             android:layout_height="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/back_oval"
-            android:elevation="3dp"
             app:layout_constraintBottom_toBottomOf="@+id/mapView"
             app:layout_constraintEnd_toEndOf="@id/mapView"
             app:layout_constraintStart_toStartOf="@+id/mapView"
