@@ -49,10 +49,7 @@ class MyAddressesAdapter(private val placeList: ArrayList<PlaceModel>) :
         notifyDataSetChanged()
     }
 
-
     fun setOnclickItemListener(f: SingleBlock<PlaceModel>) {
         listenClick = f
     }
-
-
 }

@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import uz.rdo.projects.searchbookyandexmap.data.room.db.MyDataBase
 import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
+import uz.rdo.projects.searchbookyandexmap.databinding.DialogDelAddressBinding
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentAddressesBinding
 import uz.rdo.projects.searchbookyandexmap.ui.adapters.recycler.MyAddressesAdapter
 import uz.rdo.projects.searchbookyandexmap.ui.baseFactories.AddressesViewModelFactory
+import uz.rdo.projects.searchbookyandexmap.ui.dialog.AddressDeleteDialog
 
 class AddressesFragment : Fragment() {
 
@@ -24,6 +26,8 @@ class AddressesFragment : Fragment() {
 
     lateinit var viewModel: AddressesViewModel
     lateinit var adapter: MyAddressesAdapter
+    lateinit var mPlacesList: ArrayList<PlaceModel>
+    lateinit var dialog: AddressDeleteDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +46,6 @@ class AddressesFragment : Fragment() {
         viewModel.getAllPlacesList()
     }
 
-
     @SuppressLint("FragmentLiveDataObserve")
     private fun loadObservers() {
         viewModel.resultPlacesList.observe(this, getPlacesListObserver)
@@ -51,7 +54,9 @@ class AddressesFragment : Fragment() {
     }
 
     private val getPlacesListObserver = Observer<List<PlaceModel>> { placesList ->
-        adapter.submitList(placesList as ArrayList<PlaceModel>)
+        mPlacesList.clear()
+        mPlacesList.addAll(placesList)
+        adapter.submitList(mPlacesList)
     }
 
     private val delPlaceListObserver = Observer<Int> {
@@ -72,8 +77,15 @@ class AddressesFragment : Fragment() {
         adapter = MyAddressesAdapter(arrayListOf())
         binding.rvMyPlaces.adapter = adapter
 
-        adapter.setOnclickItemListener {
-            // TODO: 15.02.2021  CLICK DELETE DIALOG
+        adapter.setOnclickItemListener { placeModel ->
+            dialog = AddressDeleteDialog(requireActivity(), placeModel)
+            dialog.show()
+            dialog.setOnclickDeleteCallback { _placeModel ->
+                viewModel.deletePlace(_placeModel)
+                dialog.dismiss()
+                mPlacesList.remove(placeModel)
+                adapter.submitList(mPlacesList)
+            }
         }
     }
 
@@ -84,11 +96,15 @@ class AddressesFragment : Fragment() {
             this,
             AddressesViewModelFactory(repositoryImpl)
         ).get(AddressesViewModel::class.java)
+
+
+        mPlacesList = ArrayList()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
 
 }

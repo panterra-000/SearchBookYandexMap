@@ -23,4 +23,6 @@
     <string name="save">Сохранить</string>
     <string name="delete_all">delete all</string>
     <string name="my_addresses">Мои адреса</string>
+    <string name="would_you_like_to_delete_this_address">Вы хотите удалить этот адрес?</string>
+    <string name="delete">Удалить</string>
 </resources>
