@@ -22,4 +22,5 @@
     <string name="cancel">Отмена</string>
     <string name="save">Сохранить</string>
     <string name="delete_all">delete all</string>
+    <string name="my_addresses">Мои адреса</string>
 </resources>

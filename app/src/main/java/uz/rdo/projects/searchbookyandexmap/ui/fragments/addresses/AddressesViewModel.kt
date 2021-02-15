@@ -15,6 +15,10 @@ class AddressesViewModel(private val addressesRepository: AddressesRepository) :
     private val _resultDeleteAllPlaces = MediatorLiveData<Int>()
     val resultDeleteAllPlaces: LiveData<Int> get() = _resultDeleteAllPlaces
 
+    private val _resultDeletePlace = MediatorLiveData<Boolean>()
+    val resultDeletePlace: LiveData<Boolean> get() = _resultDeletePlace
+
+
 
     fun getAllPlacesList() {
         _resultPlacesList.addSourceDisposable(addressesRepository.getAllPlacesFromDB()) { allPlacesList ->
@@ -27,4 +31,13 @@ class AddressesViewModel(private val addressesRepository: AddressesRepository) :
             _resultDeleteAllPlaces.value = it
         }
     }
+
+    fun deletePlace(placeModel: PlaceModel) {
+        _resultDeletePlace.addSourceDisposable(addressesRepository.deletePlace(placeModel)) { isDelete ->
+            _resultDeletePlace.value = isDelete
+        }
+    }
 }
+
+
+

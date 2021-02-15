@@ -34,4 +34,17 @@ class AddressesRepositoryImpl(private val placeMDao: PlaceMDao) : AddressesRepos
         return resultData
     }
 
+    override fun deletePlace(placeModel: PlaceModel): LiveData<Boolean> {
+        val resultData = MutableLiveData<Boolean>()
+        Coroutines.ioThenMain(
+            { placeMDao.delete(placeModel) },
+            { id ->
+                if (id != null) {
+                    resultData.value = id > 0
+                }
+            }
+        )
+        return resultData
+    }
+
 }

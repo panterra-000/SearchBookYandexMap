@@ -11,7 +11,8 @@ interface MapRepository {
 
 interface AddressesRepository {
     fun getAllPlacesFromDB(): LiveData<List<PlaceModel>>
-    fun deleteAllPlacesDb():  LiveData<Int>
+    fun deleteAllPlacesDb(): LiveData<Int>
+    fun deletePlace(placeModel: PlaceModel): LiveData<Boolean>
 }
 
 interface ProfileRepository {

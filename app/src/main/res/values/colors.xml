@@ -24,5 +24,7 @@
     <color name="colorLineDialog">#EEEEEF</color>
     <color name="colorShade">#6D553634</color>
 
+    <!--my addresses-->
+    <color name="colorBackMyAddresses">#F2F2F2</color>
 
 </resources>

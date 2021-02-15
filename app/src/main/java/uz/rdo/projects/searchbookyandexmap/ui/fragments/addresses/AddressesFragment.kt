@@ -30,7 +30,6 @@ class AddressesFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
@@ -43,23 +42,24 @@ class AddressesFragment : Fragment() {
     private fun loadObservers() {
         viewModel.resultPlacesList.observe(this, getPlacesListObserver)
         viewModel.resultDeleteAllPlaces.observe(this, delPlaceListObserver)
+        viewModel.resultDeletePlace.observe(this, delPlaceObserver)
     }
 
 
     private val getPlacesListObserver = Observer<List<PlaceModel>> { placesList ->
-        var result: String = ""
-        for (placeModel in placesList) {
-            result += "${placeModel.title} - ${placeModel.id} \n"
-        }
-        binding.txtResult.text = result
+        // TODO: 15.02.2021  
     }
 
     private val delPlaceListObserver = Observer<Int> {
         if (it >= 0) {
-            binding.txtResult.text = ""
+         
+            
         }
     }
 
+    private val delPlaceObserver = Observer<Boolean> {
+
+    }
 
     private fun loadViews() {
         binding.btnDelAll.setOnClickListener {
