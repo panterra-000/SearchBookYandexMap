@@ -7,5 +7,8 @@ import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
 @Dao
 interface PlaceMDao : BaseDao<PlaceModel> {
     @Query("SELECT * FROM  placemodel")
-    fun getAllPlaceModels():List<PlaceModel>
+    fun getAllPlaceModels(): List<PlaceModel>
+
+    @Query("DELETE from placemodel")
+    fun deleteAllPlaces(): Int
 }

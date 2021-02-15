@@ -23,22 +23,15 @@ class AddressesRepositoryImpl(private val placeMDao: PlaceMDao) : AddressesRepos
 
     }
 
-    override fun deletePlaceFromDB(placeModel: PlaceModel): LiveData<Boolean> {
-        TODO("Not yet implemented")
-    }
-
-/*
-    override fun deleteAllPlacesDb(): LiveData<Boolean> {
-        val resultLiveData = MutableLiveData<Boolean>()
+    override fun deleteAllPlacesDb(): LiveData<Int> {
+        val resultData = MutableLiveData<Int>()
         Coroutines.ioThenMain(
-            { placeMDao.deleteAll() },
-            { IDs ->
-                resultLiveData.value = (IDs != null)
+            { placeMDao.deleteAllPlaces() },
+            {
+                resultData.value = it
             }
         )
-        return resultLiveData
+        return resultData
     }
-*/
-
 
 }

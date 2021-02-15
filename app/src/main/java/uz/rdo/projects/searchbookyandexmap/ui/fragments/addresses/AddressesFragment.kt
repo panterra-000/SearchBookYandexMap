@@ -13,7 +13,6 @@ import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
 import uz.rdo.projects.searchbookyandexmap.databinding.FragmentAddressesBinding
 import uz.rdo.projects.searchbookyandexmap.ui.baseFactories.AddressesViewModelFactory
 
-
 class AddressesFragment : Fragment() {
 
     private var _binding: FragmentAddressesBinding? = null
@@ -43,31 +42,29 @@ class AddressesFragment : Fragment() {
     @SuppressLint("FragmentLiveDataObserve")
     private fun loadObservers() {
         viewModel.resultPlacesList.observe(this, getPlacesListObserver)
-        viewModel.resultDelPlacesList.observe(this, delAllPlacesListObserver)
+        viewModel.resultDeleteAllPlaces.observe(this, delPlaceListObserver)
     }
 
-    private val delAllPlacesListObserver = Observer<Boolean> { isDelete ->
-        if (isDelete) {
-            binding.txtResult.text = "deleted"
-        }
-    }
 
     private val getPlacesListObserver = Observer<List<PlaceModel>> { placesList ->
         var result: String = ""
         for (placeModel in placesList) {
             result += "${placeModel.title} - ${placeModel.id} \n"
         }
-
         binding.txtResult.text = result
-
     }
 
-    private fun loadViews() {
-
-        binding.btnDelAll.setOnClickListener {
-//            viewModel.deleteAllPlaceList()
+    private val delPlaceListObserver = Observer<Int> {
+        if (it >= 0) {
+            binding.txtResult.text = ""
         }
+    }
 
+
+    private fun loadViews() {
+        binding.btnDelAll.setOnClickListener {
+            viewModel.deleteAllPlaceList()
+        }
     }
 
     private fun setupViewModel() {
