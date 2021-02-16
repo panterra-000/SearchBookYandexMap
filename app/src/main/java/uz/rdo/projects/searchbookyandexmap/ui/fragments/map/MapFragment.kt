@@ -21,14 +21,12 @@ import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.GeoObjectTapListener
 import com.yandex.mapkit.layers.ObjectEvent
-import com.yandex.mapkit.map.CameraListener
-import com.yandex.mapkit.map.CameraPosition
-import com.yandex.mapkit.map.GeoObjectSelectionMetadata
-import com.yandex.mapkit.map.VisibleRegionUtils
+import com.yandex.mapkit.map.*
 import com.yandex.mapkit.search.*
 import com.yandex.mapkit.user_location.UserLocationObjectListener
 import com.yandex.mapkit.user_location.UserLocationView
 import com.yandex.runtime.Error
+import com.yandex.runtime.image.ImageProvider
 import uz.rdo.projects.searchbookyandexmap.MainActivity
 import uz.rdo.projects.searchbookyandexmap.R
 import uz.rdo.projects.searchbookyandexmap.data.room.db.MyDataBase
@@ -165,8 +163,7 @@ class MapFragment : Fragment() {
                 adapter!!.setOnclickItemListener { placeModel ->
 
                     clickedPlaceModel = placeModel
-                    val point0 = Point(placeModel.latitude, placeModel.longitude)
-                    val point = Point(localStorage.currentLat, localStorage.currentLong)
+                    val point = Point(placeModel.latitude, placeModel.longitude)
                     moveCameraPosition(point)
                     hideKeyboard(requireActivity())
                     binding.etSearch.setText("")
@@ -430,7 +427,6 @@ class MapFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 
 }
 
