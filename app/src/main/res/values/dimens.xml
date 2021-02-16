@@ -11,4 +11,10 @@
     <dimen name="out_margin_top_shade">15dp</dimen>
     <dimen name="title_txt_size_del_dialog">20sp</dimen>
 
+    <dimen name="shade_normal_width">35dp</dimen>
+    <dimen name="shade_min_width">25dp</dimen>
+    <dimen name="shade_normal_height">10dp</dimen>
+    <dimen name="shade_min_height">5dp</dimen>
+
+
 </resources>
