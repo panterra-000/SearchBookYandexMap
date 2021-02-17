@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -26,7 +30,7 @@ import com.yandex.mapkit.search.*
 import com.yandex.mapkit.user_location.UserLocationObjectListener
 import com.yandex.mapkit.user_location.UserLocationView
 import com.yandex.runtime.Error
-import com.yandex.runtime.image.ImageProvider
+import com.yandex.runtime.ui_view.ViewProvider
 import uz.rdo.projects.searchbookyandexmap.MainActivity
 import uz.rdo.projects.searchbookyandexmap.R
 import uz.rdo.projects.searchbookyandexmap.data.room.db.MyDataBase
@@ -79,6 +83,7 @@ class MapFragment : Fragment() {
         localStorage = LocalStorage(requireActivity())
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("SetTextI18n")
     private fun setBottomSheet(selectedPlaceM: PlaceModel) {
         showBottomSheet()
@@ -109,6 +114,7 @@ class MapFragment : Fragment() {
                 dialog.show()
 
                 dialog.setOnclickSaveCallback { placeModel ->
+                    addPlaceMark(placeModel)
                     viewModel.addPlaceModelToDB(placeModel)
                 }
             }
@@ -148,6 +154,7 @@ class MapFragment : Fragment() {
         hideBottomSheet()
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun loadViews() {
         checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) {
             checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION) {
@@ -203,21 +210,15 @@ class MapFragment : Fragment() {
             }
         }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private val geoObjectTapListener = GeoObjectTapListener { geoObjectTapEvent ->
 
         val selectionMetadata = geoObjectTapEvent.geoObject.metadataContainer.getItem(
             GeoObjectSelectionMetadata::class.java
         )
 
-        binding.tRV.text = if (geoObjectTapEvent != null) {
-            "bosildi"
-        } else {
-            "qoyib yuborildi"
-        }
-
         val businessData =
             geoObjectTapEvent.geoObject.metadataContainer.getItem(BusinessRating1xObjectMetadata::class.java)
-
 
         val currentLocation = Location("current")
         val foundLocation = Location("found")
@@ -363,7 +364,6 @@ class MapFragment : Fragment() {
                 Log.d("1997O", "placeM : ")
                 resultList.add(placeM)
             }
-//            showToast(resultList.toString(), requireContext())
             adapter?.submitList(resultList)
         }
     }
@@ -419,7 +419,7 @@ class MapFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        binding.mapView.onStop()
+        bindigng.mapView.onStop()
         MapKitFactory.getInstance().onStop()
     }
 
@@ -428,5 +428,27 @@ class MapFragment : Fragment() {
         _binding = null
     }
 
+
+    private fun addPlaceMark(placeModel: PlaceModel) {
+        val params = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        params.width = 100
+        params.height = 300
+
+
+        val imageView = ImageView(requireContext())
+        imageView.setImageResource(R.drawable.ic_love_location_map)
+        imageView.layoutParams = params
+        
+        val viewProvider = ViewProvider(imageView)
+        val mapObjects = binding.mapView.map.mapObjects.addCollection()
+        val viewPlacemark: PlacemarkMapObject = mapObjects.addPlacemark(
+            Point(placeModel.latitude, placeModel.longitude),
+            viewProvider
+        )
+        viewPlacemark.setView(viewProvider)
+    }
 }
 

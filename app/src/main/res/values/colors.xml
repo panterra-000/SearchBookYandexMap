@@ -27,5 +27,6 @@
     <!--my addresses-->
     <color name="colorBackMyAddresses">#F2F2F2</color>
     <color name="red">#990010</color>
+    <color name="ic_backColor">#10D118</color>
 
 </resources>
