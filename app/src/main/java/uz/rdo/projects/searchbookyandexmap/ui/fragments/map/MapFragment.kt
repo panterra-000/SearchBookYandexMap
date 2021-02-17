@@ -419,7 +419,7 @@ class MapFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        bindigng.mapView.onStop()
+        binding.mapView.onStop()
         MapKitFactory.getInstance().onStop()
     }
 
