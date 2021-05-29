@@ -14,9 +14,4 @@
         android:name="uz.rdo.projects.searchbookyandexmap.ui.fragments.map.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="uz.rdo.projects.searchbookyandexmap.ui.fragments.profile.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
 </navigation>

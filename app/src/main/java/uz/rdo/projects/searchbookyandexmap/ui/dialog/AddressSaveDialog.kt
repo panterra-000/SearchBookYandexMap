@@ -17,11 +17,9 @@ class AddressSaveDialog(private val activity: Activity, private val placeModel: 
     private val binding: DialogAddAddressBinding
         get() = _binding ?: throw NullPointerException("View wasn't created")
 
-
     private var editable: Boolean = false
 
     private var listenClick: SingleBlock<PlaceModel>? = null
-
 
     init {
         _binding = DialogAddAddressBinding.inflate(layoutInflater)

@@ -44,6 +44,8 @@ import uz.rdo.projects.searchbookyandexmap.utils.*
 
 class MapFragment : Fragment() {
 
+    private var isNight = false
+
     private var _binding: FragmentMapBinding? = null
     private val binding: FragmentMapBinding
         get() = _binding ?: throw NullPointerException("view is not available")
@@ -70,6 +72,7 @@ class MapFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViewModel()
         setupLocalStorage()
@@ -180,9 +183,24 @@ class MapFragment : Fragment() {
                 }
             }
         }
+
+        binding.btnNight.setOnClickListener {
+            if (isNight) {
+                binding.btnNight.setImageResource(R.drawable.ic_night)
+                binding.mapView.map.isNightModeEnabled = false
+                isNight = false
+            } else {
+                binding.btnNight.setImageResource(R.drawable.ic_day)
+                binding.mapView.map.isNightModeEnabled = true
+                isNight = true
+            }
+
+        }
+
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun loadMapListeners() {
         moveCameraPosition(currentPoint)
         binding.mapView.map.apply {
@@ -428,7 +446,6 @@ class MapFragment : Fragment() {
         _binding = null
     }
 
-
     private fun addPlaceMark(placeModel: PlaceModel) {
         val params = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -441,7 +458,7 @@ class MapFragment : Fragment() {
         val imageView = ImageView(requireContext())
         imageView.setImageResource(R.drawable.ic_love_location_map)
         imageView.layoutParams = params
-        
+
         val viewProvider = ViewProvider(imageView)
         val mapObjects = binding.mapView.map.mapObjects.addCollection()
         val viewPlacemark: PlacemarkMapObject = mapObjects.addPlacemark(

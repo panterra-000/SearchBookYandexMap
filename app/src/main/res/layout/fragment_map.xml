@@ -81,6 +81,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/btn_night"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="60dp"
+            android:src="@drawable/ic_night"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
             android:id="@+id/btn_navigate_me"
             android:layout_width="64dp"
             android:layout_height="64dp"
@@ -100,7 +110,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_pin" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
@@ -110,5 +119,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:visibility="gone" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

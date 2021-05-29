@@ -90,8 +90,8 @@ class AddressesFragment : Fragment() {
 
         adapter.setOnclickCallbackLocation {
             showToast("show show show", requireContext())
-        }
 
+        }
     }
 
     private fun setupViewModel() {

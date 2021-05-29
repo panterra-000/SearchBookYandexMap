@@ -14,7 +14,3 @@ interface AddressesRepository {
     fun deleteAllPlacesDb(): LiveData<Int>
     fun deletePlace(placeModel: PlaceModel): LiveData<Boolean>
 }
-
-interface ProfileRepository {
-    fun getProfileInformation(id: Long): LiveData<Profile>
-}
