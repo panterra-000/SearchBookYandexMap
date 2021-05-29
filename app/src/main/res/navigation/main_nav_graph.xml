@@ -8,7 +8,12 @@
         android:id="@+id/addressesFragment"
         android:name="uz.rdo.projects.searchbookyandexmap.ui.fragments.addresses.AddressesFragment"
         android:label="fragment_addresses"
-        tools:layout="@layout/fragment_addresses" />
+        tools:layout="@layout/fragment_addresses" >
+        <action
+            android:id="@+id/action_addressesFragment_to_mapFragment"
+            app:destination="@id/mapFragment" >
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="uz.rdo.projects.searchbookyandexmap.ui.fragments.map.MapFragment"

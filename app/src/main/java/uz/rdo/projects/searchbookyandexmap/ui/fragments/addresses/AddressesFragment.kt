@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.rdo.projects.searchbookyandexmap.data.room.db.MyDataBase
 import uz.rdo.projects.searchbookyandexmap.data.room.entity.PlaceModel
@@ -89,7 +88,7 @@ class AddressesFragment : Fragment() {
         }
 
         adapter.setOnclickCallbackLocation {
-            showToast("show show show", requireContext())
+            showToast("Point: ${it.longitude}, ${it.latitude}", requireContext())
 
         }
     }
@@ -101,7 +100,6 @@ class AddressesFragment : Fragment() {
             this,
             AddressesViewModelFactory(repositoryImpl)
         ).get(AddressesViewModel::class.java)
-
 
         mPlacesList = ArrayList()
     }

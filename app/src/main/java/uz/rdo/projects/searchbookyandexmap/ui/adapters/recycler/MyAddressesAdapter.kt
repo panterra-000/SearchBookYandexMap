@@ -16,7 +16,6 @@ class MyAddressesAdapter(private val placeList: ArrayList<PlaceModel>) :
 
     private var listenClickLocation: SingleBlock<PlaceModel>? = null
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultHolder = ResultHolder(
         ItemPlaceDescBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )

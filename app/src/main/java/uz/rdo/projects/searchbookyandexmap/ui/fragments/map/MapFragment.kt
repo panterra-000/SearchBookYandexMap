@@ -18,6 +18,8 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.yandex.mapkit.Animation
@@ -80,6 +82,8 @@ class MapFragment : Fragment() {
         loadObservers()
         loadViews()
         loadMapListeners()
+
+
     }
 
     private fun setupLocalStorage() {
